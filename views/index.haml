@@ -1,0 +1,39 @@
+- content_for :javascripts do
+  = include_javascript :mustache
+  = include_javascript "http://maps.google.com/maps/api/js?sensor=false" 
+  = include_javascript :fusion_library
+  = include_javascript :open_city
+
+  :javascript
+    (function() {
+      var us_centroid = new google.maps.LatLng(40.413496,-88.979919);
+      var tableId = "1QPBBx13LeWLlTh9WesUleaQ-zf9zWLToU-zRWM4"; // Open Data
+      //var tableId = "4902990"
+      var filters = [
+        {"City Search":  {columns: ["city"],  type: "text"}},
+        {"State Search": {columns: ["state"], type: "text"}}
+      ];
+
+      map = new Fusion.Map("template_map", {center: us_centroid, zoom: 6, mapTypeControl: true});
+      var layer = map.layers.create({select: "geometry", from: tableId});
+      map.present();
+
+      filterPanel = new OpenCity.Template.FilterPanel(tableId, filters, {
+        map: map, callbackObject: "filterPanel"
+      });
+      filterPanel.present();
+    })(); 
+
+.row-fluid
+  #filters.span3
+
+    %p< The map divides the state into the 18 Congressional districts as they will appear in 2013. The greater the number of claimants who are certifying for regular benefits, the brighter they appear on the map.
+    %P< Per IDES, The information in each month’s report reflects a four-week average ending in the week of the 12thof the prior month.  The results in the August 2012 report are compiled from claims activity related to regular unemployment benefits in the week ending July 14, 2012 (that includes the 12thof July) and the three immediately prior weeks of data (from June 17 to July 7). A four-week average removes some of the volatility in claims activity that can occur from one week to the next. The inclusion of the week of the 12th in the reference period is consistent with other major labor market statistical series, such as employment and unemployment data.
+    %p< Total claimants – individuals who are certified for regular unemployment benefits in the reference period. The payment status of these claims can be either suspended, paid, not paid, waiting week or penalty week.
+    %p<
+      You can view the official IDES Legislative Dashboard here 
+      = link_to ' See it here', 'http://www.ides.illinois.gov/page.aspx?item=3605'
+    %p
+
+  #template_map.span9
+
