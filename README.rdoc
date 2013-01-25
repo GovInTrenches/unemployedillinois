@@ -1,4 +1,13 @@
-= Open City site template
+= Unemployed Illinois
+
+This site uses the IDES legislative dashboard data to display unemployment by State Senate District in Illinois. 
+
+For questions on this app, please email christopherpaulwhitaker@gmail.com 
+
+I'll be updating this readme shortly. 
+
+
+This site uses @Derek_Eder's fusion table whose readme is below. 
 
 Simple site template using Ruby, Sinatra and Haml with tie-ins to Heroku and Google Analytics.
 
